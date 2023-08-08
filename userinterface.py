@@ -109,9 +109,6 @@ while True:
             print("yes")
             new_items = getBaseList(items)
             items.extend(new_items)
-            print("Here are your based items:")
-            for i, item in enumerate(items):
-                print(i, ": ", item)
 
         
     except ValueError:

@@ -1,0 +1,1 @@
+- currently we need to remove items before the base model will add on additional suggestions. We should be able to add without having to remove
