@@ -52,10 +52,12 @@ def baseCompletion(input):
     return response.choices
 
 def formatListPrompt(list):
-    last_line = list[-1]
-    last_num = int(last_line.split(".")[0])
-    new_line = "{}. New Line".format(last_num + 1)
-    return s + "\n" + new_line
+    prompt = ""
+    for i, item in enumerate(items):
+        prompt+=f'{i}: {item}'
+    prompt += "\n"
+    prompt += f'{len(list)}'
+    return prompt
 
 def parseChoices(response):
     choices = []
@@ -64,9 +66,14 @@ def parseChoices(response):
     return choices
 
 def getBaseList(list):
+    print("running")
     prompt = formatListPrompt(list)
+    print("prompt formed")
     response = baseCompletion(prompt)
+    print("response received")
     choices = parseChoices(response)
+    print("choices parsed")
+
     return choices
 
 
@@ -99,6 +106,7 @@ while True:
         # Get new items from GPT-3
         proceed = input("Would you like to get more items? (y/n): ")
         if proceed.lower() == 'y':
+            print("yes")
             new_items = getBaseList(items)
             items.extend(new_items)
             print("Here are your based items:")
