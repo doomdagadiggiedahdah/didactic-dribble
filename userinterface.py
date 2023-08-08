@@ -19,23 +19,29 @@ def extract_list_items(text):
 # Prompting the user for an open-ended string
 user_text = input("Please describe the topic you would like to brainstorm: ")
 items = extract_list_items(sample_text)
-print("Extracted items from the list:")
-for i, item in enumerate(items):
-    print(i, ": ", item)
 
 # Repeatedly asking the user for a list of indices
 while True:
-    indices_input = input("Please enter a list of indices separated by commas (or type 'exit' to quit): ")
+    print("Current items in the list:")
+    for i, item in enumerate(items):
+        print(i, ": ", item)
+        
+    indices_input = input("Please enter a list of indices separated by commas to remove items (or type 'exit' to quit): ")
     if indices_input.lower() == 'exit':
         break
+    
     try:
-        indices = [int(index.strip()) for index in indices_input.split(',')]
+        # Convert the indices to integers, sort them in descending order to remove items without changing other indices
+        indices = sorted([int(index.strip()) for index in indices_input.split(',')], reverse=True)
+        
         for index in indices:
             if 0 <= index < len(items):
-                print(f"Item at index {index}: {items[index]}")
+                removed_item = items.pop(index)
+                print(f"Removed item at index {index}: {removed_item}")
             else:
                 print(f"Index {index} is out of range.")
     except ValueError:
         print("There was an error in your input. Please enter a valid list of indices separated by commas.")
 
 print("Thank you for using the program!")
+
