@@ -41,10 +41,11 @@ RES = openai.ChatCompletion.create(
 
 def baseCompletion(input):
     response = openai.Completion.create(
-    engine="text-davinci-002",
+    engine="davinci",
     prompt=input,
     max_tokens=60,
     temperature=1.0,
+    stop="\n"
     )
 
     return response.choices[0].text
@@ -54,8 +55,7 @@ items = extract_list_items(RES.choices[0].message["content"])
 
 
 def formatListPrompt(list):
-    lines = s.split("\n")
-    last_line = lines[-1]
+    last_line = list[-1]
     last_num = int(last_line.split(".")[0])
     new_line = "{}. New Line".format(last_num + 1)
     return s + "\n" + new_line
