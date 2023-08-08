@@ -1,6 +1,10 @@
 import openai
+import os
 
-openai.api_key_path = "/home/mat/Documents/ProgramExperiments/secretAPIkey"
+openai.api_key = os.environ.get('API_KEY')
+if not openai.api_key:
+    raise ValueError("No API key provided. Set the API_KEY environment variable.")
+
 MODEL = "gpt-3.5-turbo-16k-0613"
 
 REQUEST = "Howdy do neighbor!"
