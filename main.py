@@ -5,7 +5,7 @@ MODEL = "gpt-3.5-turbo-16k-0613"
 
 REQUEST = "Howdy do neighbor!"
 
-create_draft = openai.ChatCompletion.create(
+res = openai.ChatCompletion.create(
         model = MODEL,
         messages = [
             {"role": "system", "content": """
@@ -16,3 +16,4 @@ create_draft = openai.ChatCompletion.create(
     )
 
 
+print(res.choices[0].message["content"])
