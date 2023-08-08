@@ -45,20 +45,35 @@ def baseCompletion(input):
     prompt=input,
     max_tokens=60,
     temperature=1.0,
-    stop="\n"
+    stop="\n",
+    n=10
     )
 
-    return response.choices[0].text
-
-
-items = extract_list_items(RES.choices[0].message["content"])
-
+    return response.choices
 
 def formatListPrompt(list):
     last_line = list[-1]
     last_num = int(last_line.split(".")[0])
     new_line = "{}. New Line".format(last_num + 1)
     return s + "\n" + new_line
+
+def parseChoices(response):
+    choices = []
+    for choice in response:
+        choices.append(choice.text)
+    return choices
+
+def getBaseList(list):
+    prompt = formatListPrompt(list)
+    response = baseCompletion(prompt)
+    choices = parseChoices(response)
+    return choices
+
+
+items = extract_list_items(RES.choices[0].message["content"])
+
+
+
 
 # Repeatedly asking the user for a list of indices
 while True:
