@@ -96,6 +96,15 @@ while True:
             else:
                 print(f"Index {index} is out of range.")
 
+        # Get new items from GPT-3
+        proceed = input("Would you like to get more items? (y/n): ")
+        if proceed.lower() == 'y':
+            new_items = getBaseList(items)
+            items.extend(new_items)
+            print("Here are your based items:")
+            for i, item in enumerate(items):
+                print(i, ": ", item)
+
         
     except ValueError:
         print("There was an error in your input. Please enter a valid list of indices separated by commas.")
