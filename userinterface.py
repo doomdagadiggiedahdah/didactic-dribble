@@ -1,13 +1,24 @@
 import re
 
+sample_text = """
+Your intro text here...
+
+1. Commercial Space Flight: Purchase a ticket with a commercial space agency when available.
+2. Government Space Mission: Become an astronaut and get selected for a moon mission.
+...
+22. Giant Balloon Ride: Inflate a massive helium balloon and float your way to the moon (another whimsical and infeasible idea).
+
+Your outro text here...
+"""
+
 def extract_list_items(text):
     pattern = r'^\d+\.\s*(.*)'
     items = re.findall(pattern, text, flags=re.MULTILINE)
     return items
 
 # Prompting the user for an open-ended string
-user_text = input("Please enter a string (for example, the text containing the list of ways to go to the moon): ")
-items = extract_list_items(user_text)
+user_text = input("Please describe the topic you would like to brainstorm: ")
+items = extract_list_items(sample_text)
 print("Extracted items from the list:")
 for i, item in enumerate(items):
     print(i, ": ", item)
